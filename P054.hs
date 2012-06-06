@@ -3,11 +3,16 @@ data CardRank = High | OnePair | TwoPairs | ThreeKind
     | StraightFlush | RoyalFlush
     deriving (Eq, Ord, Show, Read, Bounded, Enum)
 
-conseq :: [(Int, Char)] ->  Bool
+data CardValue = Two | Three | Four | Five | Six
+    | Seven | Eight | Nine | Ten | Jack
+    | Queen | King | Ace
+    deriving (Eq, Ord, Show, Read, Bounded, Enum)
+
+conseq :: [(CardValue, Char)] ->  Bool
 conseq cards = helper (tail cards) (fst (head cards))
     where helper cards current
             | null cards = True
-            | current /= next - 1 = False
+            | current /= succ next = False
             | otherwise = helper (tail cards) next
             where next = fst $ head cards
 
