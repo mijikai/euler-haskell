@@ -25,3 +25,11 @@ group_by (x:xs) key = helper (key x) xs [x] []
             where first = head list 
                   f = key first
                   rest = tail list
+same_suit :: [(CardValue, Char)] -> Bool
+same_suit (x:xs) = helper xs
+    where init = snd x
+          helper list
+            | null list = True
+            | init /= current = False
+            | otherwise = helper $ tail list
+            where current = snd $ head list
