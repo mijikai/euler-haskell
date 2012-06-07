@@ -73,3 +73,22 @@ parse cards
           value = head c
           kind = head $ tail c
           get_card value = [Two .. Ace] !! (fromJust $ elemIndex value "23456789TJQKA")
+
+main :: IO ()
+main = do
+       inh <- openFile "poker.txt" ReadMode
+       mainLoop inh 0
+       hClose inh
+
+mainLoop :: Handle -> Int -> IO ()
+mainLoop inh n =
+    do eof <- hIsEOF inh
+       if eof
+           then
+               putStrLn $ show n
+           else do
+                line <- hGetLine inh
+                let (x, y) = splitAt 5 $ parse $ words line
+                if (beat `on` reverse) (sort x) (sort y)
+                    then mainLoop inh (n + 1)
+                    else mainLoop inh n
