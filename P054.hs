@@ -14,7 +14,7 @@ conseq :: [(CardValue, Char)] ->  Bool
 conseq cards = helper (tail cards) (fst (head cards))
     where helper cards current
             | null cards = True
-            | current /= succ next = False
+            | next /= (maxBound :: CardValue) && current /= succ next = False
             | otherwise = helper (tail cards) next
             where next = fst $ head cards
 
