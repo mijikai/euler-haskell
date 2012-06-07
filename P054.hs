@@ -65,3 +65,11 @@ beat play_one play_two = case compare (rank play_one) (rank play_two) of
                 where b1 = fst $ head c1
                       b2 = fst $ head c2
 
+parse :: [String] -> [(CardValue, Char)]
+parse cards
+    | null cards = []
+    | otherwise = ((get_card value),kind):(parse $ tail cards)
+    where c = head cards
+          value = head c
+          kind = head $ tail c
+          get_card value = [Two .. Ace] !! (fromJust $ elemIndex value "23456789TJQKA")
