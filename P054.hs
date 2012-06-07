@@ -53,3 +53,15 @@ rank cards@(_:_:_:_:_:[])
                     else (FourKind, value2)
             where group_head = head groups
                   value2 = fst $ head group_head
+
+beat :: [(CardValue, Char)] -> [(CardValue, Char)] -> Bool
+beat play_one play_two = case compare (rank play_one) (rank play_two) of
+    GT -> True
+    LT -> False
+    EQ -> cmp play_one play_two
+        where cmp c1 c2
+                | b1 == b2 = cmp (tail c1) (tail c2)
+                | otherwise = b1 > b2
+                where b1 = fst $ head c1
+                      b2 = fst $ head c2
+
