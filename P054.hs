@@ -1,4 +1,7 @@
 import Data.List
+import Data.Function
+import Data.Maybe
+import System.IO
 
 data CardRank = High | OnePair | TwoPairs | ThreeKind
     | Straight | Flush | FullHouse | FourKind
