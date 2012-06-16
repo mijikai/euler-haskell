@@ -16,8 +16,8 @@ reverse_and_add num = num + (reverse_num num)
 iter_limit = 50
 
 is_lychrel :: Integer -> Bool
-is_lychrel num = (length $ take iter_limit $ takeWhile (not . is_pallindrome)
-                    $ tail $ iterate reverse_and_add num) == iter_limit
+is_lychrel num = not $ any is_pallindrome $ take iter_limit 
+                    $ tail $ iterate reverse_and_add num
 
 lst = [1..10000 - 1]
 
